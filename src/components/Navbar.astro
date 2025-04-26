@@ -1,0 +1,117 @@
+---
+import MenuDeep from "@/assets/menu-deep.svg";
+import XIcon from "@/assets/x.svg";
+import { ROUTES, ROUTES_NAVBAR } from "@/constants/routes";
+import ChevronDown from "@/assets/chevron-down.svg";
+import { CONSTANTS } from "@/constants/constants";
+import TextGradient from "./TextGradient.astro";
+
+const categories = Object.values(CONSTANTS.CATEGORIES);
+categories.push({
+    key: "see-all",
+    name: "Ver todos",
+    href: ROUTES.SERVICES,
+});
+let parts = 1;
+if (categories.length > 12) {
+    parts = 3;
+} else if (categories.length > 6) {
+    parts = 2;
+}
+const perPart = Math.ceil(categories.length / parts);
+const splitted = Array.from({ length: parts }, (_, i) =>
+    categories.slice(i * perPart, (i + 1) * perPart),
+);
+---
+
+<header class="navbar-fixed">
+    <nav>
+        <div class="logo">
+            <a href="/"> <TextGradient text="Mayu Capote" /></a>
+        </div>
+        <div class="toggle-menu" id="toggle-menu">
+            <MenuDeep />
+        </div>
+        <ul class="nav-list" id="nav-menu">
+            <div class="close-menu" id="close-menu">
+                <XIcon />
+            </div>
+            {
+                Object.values(ROUTES_NAVBAR).map((route) => (
+                    <li
+                        class={`nav-item ${route?.isDropdown ? "dropdown" : ""}`}
+                    >
+                        <a
+                            href={route.href}
+                            class={`nav-link ${route?.isDropdown ? "dropdown-link" : ""}`}
+                        >
+                            {route.name}
+                            {route?.isDropdown && (
+                                <ChevronDown class={"dropdown-icon"} />
+                            )}
+                        </a>
+                        {route?.isDropdown && (
+                            <div class="megamenu">
+                                {splitted.map((item) => (
+                                    <ul class="content">
+                                        {item.map((category) => (
+                                            <li class="megamenu-item">
+                                                <div class="megamenu-link">
+                                                    <a href={category.href}>
+                                                        {category.name}
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                ))}
+                            </div>
+                        )}
+                    </li>
+                ))
+            }
+        </ul>
+    </nav>
+</header>
+
+<script>
+    function initNavbar() {
+        const navMenu = document.getElementById("nav-menu");
+        const toggleMenu = document.getElementById("toggle-menu");
+        const closeMenu = document.getElementById("close-menu");
+
+        toggleMenu?.addEventListener("click", () => {
+            navMenu?.classList.toggle("show-menu");
+        });
+
+        closeMenu?.addEventListener("click", () => {
+            navMenu?.classList.remove("show-menu");
+        });
+
+        document.addEventListener("click", function (e: any) {
+            if (navMenu?.classList.contains("show-menu")) {
+                if (
+                    !navMenu.contains(e.target) &&
+                    !toggleMenu?.contains(e.target)
+                ) {
+                    navMenu.classList.remove("show-menu");
+                }
+            }
+        });
+    }
+
+    initNavbar();
+    document.addEventListener(
+        "astro:after-swap",
+        () => {
+            initNavbar();
+        },
+        {
+            once: false,
+        },
+    );
+</script>
+
+<style type="scss">
+    @import "../styles/Navbar.scss";
+</style>

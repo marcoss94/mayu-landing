@@ -1,0 +1,74 @@
+---
+interface Props {
+  type?: "default" | "outline";
+  href: string;
+  target?: string;
+}
+const { href, target = "_self", type = "default" } = Astro.props;
+---
+
+<a
+  href={href}
+  target={target}
+  rel={target === "_blank" ? "noopener noreferrer" : undefined}
+  class={type}
+>
+  <slot />
+</a>
+
+<style lang="scss">
+  a.default {
+    border: none;
+    color: hsl(220 13% 8%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    gap: 0.5rem;
+    height: 2.75rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    white-space: nowrap;
+    border-radius: calc(var(--radius, 0.5rem) - 2px);
+    background-color: rgba(209, 183, 143, var(--tw-bg-opacity, 1));
+    cursor: pointer;
+    appearance: button;
+    background-image: none;
+    text-transform: none;
+    transition-property: color, background-color, border-color,
+      text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.15s;
+    --tw-ring-offset-color: hsl(var(--background, 0 0% 100%));
+  }
+  a.outline {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    gap: 0.5rem;
+    height: 2.75rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    white-space: nowrap;
+    border-radius: calc(var(--radius, 0.5rem) - 2px);
+    color: rgba(209, 183, 143, var(--tw-text-opacity, 1));
+    border: 1px solid rgba(209, 183, 143, var(--tw-border-opacity, 1));
+    background-color: var(--bg-color);
+    cursor: pointer;
+    appearance: button;
+    background-image: none;
+    text-transform: none;
+    transition-property: color, background-color, border-color,
+      text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.15s;
+    --tw-ring-offset-color: var(--bg-color);
+  }
+</style>

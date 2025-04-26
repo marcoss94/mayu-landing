@@ -1,0 +1,35 @@
+---
+import type { HTMLTag } from "astro/types";
+
+interface Props {
+  text: string;
+  tag?: HTMLTag;
+  extraClass?: string;
+}
+// Props: text (string), tag (opcional, string, default 'span')
+const { text, tag = "span", extraClass = "" } = Astro.props;
+const Tag = tag;
+---
+
+<Tag class={`text-gradient ${extraClass}`}>{text}</Tag>
+<style>
+  .text-gradient {
+    /* Gradiente y stops según Tailwind */
+    --tw-gradient-from: #d1b78f 0%;
+    --tw-gradient-via-position: 50%;
+    --tw-gradient-to-position: 100%;
+    --tw-gradient-from-position: 0%;
+    --tw-gradient-to: rgb(172 111 23 / 0.7) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-from),
+      rgb(209 183 143 / 0.9) var(--tw-gradient-via-position),
+      var(--tw-gradient-to);
+    background-image: linear-gradient(
+      to bottom right,
+      var(--tw-gradient-stops)
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+</style>
