@@ -16,7 +16,9 @@
     "astro": "^5.7.4",
     "embla-carousel": "^8.6.0",
     "embla-carousel-autoplay": "^8.6.0",
-    "embla-carousel-fade": "^8.6.0"
+    "embla-carousel-fade": "^8.6.0",
+    "gsap": "^3.12.7",
+    "photoswipe": "^5.4.4"
   },
   "devDependencies": {
     "sass-embedded": "^1.86.3"

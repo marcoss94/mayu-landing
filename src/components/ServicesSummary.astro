@@ -1,0 +1,280 @@
+---
+import { CONSTANTS } from "@/constants/constants";
+import TextGradient from "./TextGradient.astro";
+import Link from "./Link.astro";
+import { ROUTES } from "@/constants/routes";
+import { Image } from "astro:assets"; // Import Image component
+const categories = Object.values(CONSTANTS.CATEGORIES);
+---
+
+<section class="services-summary">
+  <header data-animate-header>
+    <TextGradient text="Servicios" tag="h1" />
+    <p>
+      Ofrecemos una gama completa de servicios fotográficos adaptados a tus
+      necesidades específicas.
+    </p>
+  </header>
+
+  <div class="content">
+    <div class="services-list">
+      {
+        categories.map((category) => (
+          <a href={category.href} class="service-item" data-animate-service>
+            <div class="icon-container">
+              {category.icon && (
+                <Image
+                  src={category.icon}
+                  alt={`Icono de ${category.name}`}
+                  width={24}
+                  height={24}
+                />
+              )}
+            </div>
+            <TextGradient text={category.name} tag="h2" />
+            <p>{category.description}</p>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="btn-container" data-animate-btn>
+      <p>
+        ¿No encuentras lo que buscas? Podemos crear un servicio personalizado
+        para ti.
+      </p>
+      <Link href={ROUTES.CONTACT}>Solicitar presupuesto</Link>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  function initServicesSummaryAnim() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Header animation
+    gsap.from("[data-animate-header]", {
+      opacity: 0,
+      y: 80,
+      duration: 0.7,
+      scrollTrigger: {
+        trigger: "[data-animate-header]",
+        start: "top 80%",
+        end: "bottom 90%",
+      },
+    });
+
+    // Service items animation
+    gsap.from("[data-animate-service]", {
+      opacity: 0,
+      y: 80,
+      duration: 0.5,
+      stagger: 0.15,
+      scrollTrigger: {
+        trigger: ".services-list",
+        start: "top 85%",
+        end: "bottom 90%",
+      },
+    });
+
+    // Button container animation
+    gsap.from(".services-summary [data-animate-btn]", {
+      opacity: 0,
+      y: 80,
+      duration: 0.6,
+      scrollTrigger: {
+        trigger: ".services-summary [data-animate-btn]",
+        start: "top 90%",
+        end: "bottom 95%",
+      },
+    });
+  }
+
+  initServicesSummaryAnim();
+  document.addEventListener(
+    "astro:after-swap",
+    () => {
+      initServicesSummaryAnim();
+    },
+    { once: false }
+  );
+</script>
+
+<style type="scss">
+  .services-summary {
+    padding: 6rem 0.875rem 2rem;
+    @media only screen and (min-width: 1024px) {
+      padding: 6rem 0.875rem 2rem;
+    }
+
+    @media only screen and (min-width: 1536px) {
+      padding: 8rem 0.875rem 2rem;
+      max-width: var(--container-width);
+      margin: 0 auto;
+    }
+  }
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.25rem;
+      color: var(--text-color);
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+
+    @media only screen and (min-width: 1280px) {
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+    }
+    @media only screen and (min-width: 1536px) {
+      h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+      p {
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  .content {
+    padding: 0 1rem 4rem;
+  }
+
+  .services-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+
+    @media only screen and (min-width: 1280px) {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    @media only screen and (min-width: 1536px) {
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+  }
+
+  .service-item {
+    border: 1px solid transparent;
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: start;
+    background-color: var(--bg-color-light);
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-color);
+    transition:
+      box-shadow 0.2s ease-in-out,
+      border-color 0.2s ease-in-out;
+
+    &:hover {
+      border-color: var(--border-color-light);
+      box-shadow: 0 6px 15px var(--primary-hover);
+    }
+
+    h2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .icon-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      background-color: var(--primary-hover);
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      padding: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    img {
+      width: 28px;
+      height: 28px;
+      filter: brightness(0) saturate(100%) invert(83%) sepia(11%) saturate(489%)
+        hue-rotate(348deg) brightness(91%) contrast(86%);
+      margin-bottom: 0;
+    }
+
+    p {
+      color: #c2c2c2;
+    }
+
+    @media only screen and (min-width: 1280px) {
+      padding: 1rem;
+
+      h2 {
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
+      }
+      p {
+        font-size: 0.875rem;
+      }
+
+      .icon-container {
+        width: 32px;
+        height: 32px;
+        padding: 8px;
+        border-radius: 6px;
+        margin-bottom: 0.5rem;
+      }
+      img {
+        width: 16px;
+        height: 16px;
+      }
+    }
+    @media only screen and (min-width: 1536px) {
+      padding: 1.5rem;
+
+      h2 {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+      p {
+        font-size: unset;
+      }
+
+      .icon-container {
+        width: 56px;
+        height: 56px;
+        padding: 12px;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+      }
+      img {
+        width: 28px;
+        height: 28px;
+      }
+    }
+  }
+
+  .btn-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 1rem;
+    align-items: center;
+  }
+</style>
