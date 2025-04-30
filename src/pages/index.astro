@@ -5,6 +5,7 @@ import Link from "@/components/Link.astro";
 import { ROUTES } from "@/constants/routes";
 import ServicesSummary from "@/components/ServicesSummary.astro";
 import PortFolioSummary from "@/components/PortFolioSummary.astro";
+import AboutMeSummary from "@/components/AboutMeSummary.astro";
 ---
 
 <Layout>
@@ -13,6 +14,7 @@ import PortFolioSummary from "@/components/PortFolioSummary.astro";
   <div style="background-color: var(--bg-color-light);">
     <PortFolioSummary />
   </div>
+  <AboutMeSummary />
   <div style="padding: 120px 40px;">
     <Link href={ROUTES.PORTFOLIO} type="outline">Ver Portafolio</Link>
     Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas velit omnis

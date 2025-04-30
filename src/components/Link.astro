@@ -30,7 +30,7 @@ const { href, target = "_self", type = "default" } = Astro.props;
     line-height: 1.25rem;
     font-weight: 500;
     white-space: nowrap;
-    border-radius: calc(var(--radius, 0.5rem) - 2px);
+    border-radius: var(--border-radius);
     cursor: pointer;
     appearance: button;
     background-image: none;

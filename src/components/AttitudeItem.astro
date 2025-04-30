@@ -1,0 +1,63 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+  icon: ImageMetadata;
+  title: string;
+  subTitle: string;
+}
+const { icon, title, subTitle } = Astro.props;
+---
+
+<article class="attitude-item">
+  <div class="icon-container">
+    <Image src={icon} alt={`Icono de ${title}`} width={24} height={24} />
+  </div>
+  <div class="text">
+    <h3>{title}</h3>
+    <p>{subTitle}</p>
+  </div>
+</article>
+
+<style type="scss">
+  .attitude-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .icon-container {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      background-color: var(--primary-hover);
+      border-radius: 12px;
+
+      padding: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    img {
+      width: 24px;
+      height: 24px;
+      filter: brightness(0) saturate(100%) invert(83%) sepia(11%) saturate(489%)
+        hue-rotate(348deg) brightness(91%) contrast(86%);
+      margin-bottom: 0;
+    }
+
+    .text {
+      display: flex;
+      flex-direction: column;
+
+      h3 {
+        font-size: 1rem;
+        color: var(--text-color);
+      }
+
+      p {
+        color: var(--text-color-light);
+        font-size: 0.875rem;
+      }
+    }
+  }
+</style>

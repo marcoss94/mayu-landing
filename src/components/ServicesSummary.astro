@@ -3,18 +3,16 @@ import { CONSTANTS } from "@/constants/constants";
 import TextGradient from "./TextGradient.astro";
 import Link from "./Link.astro";
 import { ROUTES } from "@/constants/routes";
-import { Image } from "astro:assets"; // Import Image component
+import { Image } from "astro:assets";
+import SectionHeader from "./SectionHeader.astro";
 const categories = Object.values(CONSTANTS.CATEGORIES);
 ---
 
 <section class="services-summary">
-  <header data-animate-header>
-    <TextGradient text="Servicios" tag="h1" />
-    <p>
-      Ofrecemos una gama completa de servicios fotográficos adaptados a tus
-      necesidades específicas.
-    </p>
-  </header>
+  <SectionHeader
+    title="Servicios"
+    description="Ofrecemos una gama completa de servicios fotográficos adaptados a tus necesidades específicas."
+  />
 
   <div class="content">
     <div class="services-list">
@@ -218,7 +216,7 @@ const categories = Object.values(CONSTANTS.CATEGORIES);
     }
 
     p {
-      color: #c2c2c2;
+      color: var(--text-color-light);
     }
 
     @media only screen and (min-width: 1280px) {

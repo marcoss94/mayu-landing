@@ -73,6 +73,7 @@ import "@fontsource/poppins/900.css";
     --primary: #d1b78f;
     --primary-hover: #d1b78f21;
     --text-color: #fff;
+    --text-color-light: #c2c2c2;
     --bg-color: hsl(220 13% 8%);
     --bg-color-light: hsl(220, 11%, 11%);
     --bg-color-gay: #0a0908;
@@ -82,7 +83,9 @@ import "@fontsource/poppins/900.css";
     --border-color: hsla(0, 0%, 100%, 0.08);
     --border-color-light: hsla(0, 0%, 100%, 0.2);
     --container-width: 100rem;
+    --border-radius: calc(var(--radius, 0.5rem) - 2px);
   }
+
   * {
     box-sizing: border-box;
     margin: 0;
@@ -94,6 +97,7 @@ import "@fontsource/poppins/900.css";
     width: 100%;
     height: 100%;
     font-family: "Inter Variable", sans-serif;
+    font-size: var(--fs-base);
   }
   body {
     background: var(--bg-color);
